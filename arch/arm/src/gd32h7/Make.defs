@@ -1,0 +1,96 @@
+############################################################################
+# arch/arm/src/gd32h7/Make.defs
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.  The
+# ASF licenses this file to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance with the
+# License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+############################################################################
+
+include armv7-m/Make.defs
+
+CHIP_CSRCS  = gd32h7xx_allocateheap.c gd32h7xx_start.c gd32h7xx_rcu.c
+CHIP_CSRCS += gd32h7xx_serial.c gd32h7xx_lowputc.c
+CHIP_CSRCS += gd32h7xx_gpio.c gd32h7xx_syscfg.c
+CHIP_CSRCS += gd32h7xx_irq.c gd32h7xx_exti.c
+
+ifeq ($(CONFIG_GD32H7_DMA),y)
+CHIP_CSRCS += gd32h7xx_dma.c
+endif
+
+ifeq ($(CONFIG_GD32H7_SPI),y)
+CHIP_CSRCS += gd32h7xx_spi.c
+endif
+
+ifeq ($(CONFIG_GD32H7_I2C),y)
+CHIP_CSRCS += gd32h7xx_i2c.c
+endif
+
+ifeq ($(CONFIG_GD32H7_TIMER),y)
+CHIP_CSRCS += gd32h7xx_tim.c
+endif
+
+ifeq ($(CONFIG_GD32H7_PWM),y)
+CHIP_CSRCS += gd32h7xx_pwm.c
+endif
+
+ifeq ($(CONFIG_GD32H7_FWDGT),y)
+CHIP_CSRCS += gd32h7xx_wdg.c
+endif
+
+ifeq ($(CONFIG_GD32H7_CRC),y)
+CHIP_CSRCS += gd32h7xx_crc.c
+endif
+
+ifeq ($(CONFIG_GD32H7_TRNG),y)
+CHIP_CSRCS += gd32h7xx_trng.c
+endif
+
+ifeq ($(CONFIG_GD32H7_PMU),y)
+CHIP_CSRCS += gd32h7xx_pmu.c
+endif
+
+ifeq ($(CONFIG_GD32H7_ADC),y)
+CHIP_CSRCS += gd32h7xx_adc.c
+endif
+
+ifeq ($(CONFIG_GD32H7_DAC),y)
+CHIP_CSRCS += gd32h7xx_dac.c
+endif
+
+ifeq ($(CONFIG_GD32H7_RTC),y)
+CHIP_CSRCS += gd32h7xx_rtc.c
+endif
+
+ifeq ($(CONFIG_GD32H7_CAN),y)
+CHIP_CSRCS += gd32h7xx_can.c
+endif
+
+ifeq ($(CONFIG_GD32H7_FMC),y)
+CHIP_CSRCS += gd32h7xx_fmc.c
+endif
+
+ifeq ($(CONFIG_GD32H7_SDIO),y)
+CHIP_CSRCS += gd32h7xx_sdio.c
+endif
+
+ifneq ($(CONFIG_SCHED_TICKLESS),y)
+CHIP_CSRCS += gd32h7xx_timerisr.c
+endif
+
+ifneq ($(CONFIG_ARCH_IDLE_CUSTOM),y)
+CHIP_CSRCS += gd32h7xx_idle.c
+endif

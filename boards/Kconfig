@@ -912,13 +912,14 @@ config ARCH_BOARD_GD32F450ZK_EVAL
 	---help---
 		GD32 MCU GD32F450ZK-EVAL board based on the GD32F4 GD32F450ZKT6 MCU.
 
-config ARCH_BOARD_GD32F450ZK_AIOTBOX
-	bool "GD32 MCU GD32F450ZK-AIOTBOX"
-	depends on ARCH_CHIP_GD32F450ZK
-	select ARCH_HAVE_LEDS
-	select ARCH_HAVE_BUTTONS
-	select ARCH_HAVE_IRQBUTTONS
-	---help---
+config ARCH_BOARD_GD32H757ZM_START
+        bool "GD32 MCU GD32H757ZM-START"
+        depends on ARCH_CHIP_GD32H757
+        select ARCH_HAVE_LEDS
+        ---help---
+                GD32 MCU GD32H757ZM-START board based on the GD32H7 GD32H757ZMT6
+                (Cortex-M7, 600MHz) MCU.  This is a minimal bring-up port: the
+                console runs on USART0 (PA9/PA10) and the user LED is on PE5.
 		GD32 MCU GD32F450ZK-AIOTBOX board based on the GD32F4 GD32F450ZKT6 MCU.
 
 config ARCH_BOARD_GD32F470ZK_AIOTBOX
@@ -4200,6 +4201,7 @@ config ARCH_BOARD
 	default "freedom-kl25z"                if ARCH_BOARD_FREEDOM_KL25Z
 	default "freedom-kl26z"                if ARCH_BOARD_FREEDOM_KL26Z
 	default "gd32f450zk-eval"              if ARCH_BOARD_GD32F450ZK_EVAL
+	default "gd32h757zm-start"             if ARCH_BOARD_GD32H757ZM_START
 	default "gd32f450zk-aiotbox"           if ARCH_BOARD_GD32F450ZK_AIOTBOX
 	default "gd32f470zk-eval"              if ARCH_BOARD_GD32F470ZK_EVAL
 	default "gd32f470zk-aiotbox"           if ARCH_BOARD_GD32F470ZK_AIOTBOX
@@ -4779,6 +4781,9 @@ source "boards/arm/kl/freedom-kl26z/Kconfig"
 endif
 if ARCH_BOARD_GD32F450ZK_EVAL
 source "boards/arm/gd32f4/gd32f450zk-eval/Kconfig"
+endif
+if ARCH_BOARD_GD32H757ZM_START
+source "boards/arm/gd32h7/gd32h757zm-start/Kconfig"
 endif
 if ARCH_BOARD_GD32F450ZK_AIOTBOX
 source "boards/arm/gd32f4/gd32f450zk-aiotbox/Kconfig"

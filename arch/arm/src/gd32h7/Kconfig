@@ -1,0 +1,454 @@
+#
+# For a description of the syntax of this configuration file,
+# see the file kconfig-language.txt in the NuttX tools repository.
+#
+
+# if ARCH_CHIP_GD32H7
+
+comment "GD32H7 Configuration Options"
+
+choice
+	prompt "GD32H7 Chip Selection"
+	default ARCH_CHIP_GD32H757
+	depends on ARCH_CHIP_GD32H7
+
+config ARCH_CHIP_GD32H737
+	bool "GD32H737"
+	select GD32H7_GD32H73x
+	select GD32H7_FLASH_1M
+	---help---
+		GD32 H7 Cortex M7, 600MHz, 1024 KiB FLASH, 1024 KiB SRAM
+
+config ARCH_CHIP_GD32H757
+	bool "GD32H757"
+	select GD32H7_GD32H73x
+	select GD32H7_FLASH_2M
+	---help---
+		GD32 H7 Cortex M7, 600MHz, 2048 KiB FLASH, 1024 KiB SRAM
+
+endchoice # GD32H7 Chip Selection
+
+config GD32H7_GD32H73x
+	bool
+	default n
+	---help---
+		GD32H73x series (GD32H737, GD32H757)
+
+config GD32H7_FLASH_1M
+	bool
+	default n
+
+config GD32H7_FLASH_2M
+	bool
+	default n
+
+menu "Clock Configuration"
+	depends on ARCH_CHIP_GD32H7
+
+choice
+	prompt "System clock source"
+	default GD32H7_PLL_HXTAL
+	depends on ARCH_CHIP_GD32H7
+
+config GD32H7_USE_IRC64M
+	bool "IRC64M (64MHz, no PLL)"
+	---help---
+		Run the system clock from the internal 64MHz RC oscillator.
+		The PLL is not used.
+
+config GD32H7_PLL_HXTAL
+	bool "PLL0 fed by HXTAL"
+	---help---
+		Run the system clock from PLL0 which is fed by the external
+		high speed crystal oscillator.  The PLL configuration must be
+		provided in board.h via GD32_PLL0PSC/N/P/Q/R.
+
+endchoice # System clock source
+
+endmenu # Clock Configuration
+
+menu "U[S]ART Configuration"
+	depends on ARCH_CHIP_GD32H7
+
+# The per-UART options USARTn_BAUD/BITS/PARITY/2STOP/RXBUFSIZE/TXBUFSIZE and
+# USARTn_SERIAL_CONSOLE are provided by the generic drivers/serial Kconfig
+# files; they become visible once USARTn_SERIALDRIVER is selected below.
+
+config GD32H7_USART0
+	bool "USART0"
+	---help---
+		Enable USART0
+
+if GD32H7_USART0
+
+choice
+	prompt "USART0 Driver Configuration"
+	default GD32H7_USART0_SERIALDRIVER
+
+config GD32H7_USART0_SERIALDRIVER
+	bool "Standard serial driver"
+	select USART0_SERIALDRIVER
+	select ARCH_HAVE_SERIAL_TERMIOS
+	select GD32H7_SERIALDRIVER
+
+endchoice # USART0 Driver Configuration
+
+endif # GD32H7_USART0
+
+config GD32H7_USART1
+	bool "USART1"
+	---help---
+		Enable USART1
+
+if GD32H7_USART1
+
+choice
+	prompt "USART1 Driver Configuration"
+	default GD32H7_USART1_SERIALDRIVER
+
+config GD32H7_USART1_SERIALDRIVER
+	bool "Standard serial driver"
+	select USART1_SERIALDRIVER
+	select ARCH_HAVE_SERIAL_TERMIOS
+	select GD32H7_SERIALDRIVER
+
+endchoice # USART1 Driver Configuration
+
+endif # GD32H7_USART1
+
+config GD32H7_USART2
+	bool "USART2"
+	---help---
+		Enable USART2
+
+if GD32H7_USART2
+
+choice
+	prompt "USART2 Driver Configuration"
+	default GD32H7_USART2_SERIALDRIVER
+
+config GD32H7_USART2_SERIALDRIVER
+	bool "Standard serial driver"
+	select USART2_SERIALDRIVER
+	select ARCH_HAVE_SERIAL_TERMIOS
+	select GD32H7_SERIALDRIVER
+
+endchoice # USART2 Driver Configuration
+
+endif # GD32H7_USART2
+
+config GD32H7_UART3
+	bool "UART3"
+	---help---
+		Enable UART3
+
+if GD32H7_UART3
+
+choice
+	prompt "UART3 Driver Configuration"
+	default GD32H7_UART3_SERIALDRIVER
+
+config GD32H7_UART3_SERIALDRIVER
+	bool "Standard serial driver"
+	select UART3_SERIALDRIVER
+	select ARCH_HAVE_SERIAL_TERMIOS
+	select GD32H7_SERIALDRIVER
+
+endchoice # UART3 Driver Configuration
+
+endif # GD32H7_UART3
+
+config GD32H7_UART4
+	bool "UART4"
+	---help---
+		Enable UART4
+
+if GD32H7_UART4
+
+choice
+	prompt "UART4 Driver Configuration"
+	default GD32H7_UART4_SERIALDRIVER
+
+config GD32H7_UART4_SERIALDRIVER
+	bool "Standard serial driver"
+	select UART4_SERIALDRIVER
+	select ARCH_HAVE_SERIAL_TERMIOS
+	select GD32H7_SERIALDRIVER
+
+endchoice # UART4 Driver Configuration
+
+endif # GD32H7_UART4
+
+config GD32H7_USART5
+	bool "USART5"
+	---help---
+		Enable USART5
+
+if GD32H7_USART5
+
+choice
+	prompt "USART5 Driver Configuration"
+	default GD32H7_USART5_SERIALDRIVER
+
+config GD32H7_USART5_SERIALDRIVER
+	bool "Standard serial driver"
+	select USART5_SERIALDRIVER
+	select ARCH_HAVE_SERIAL_TERMIOS
+	select GD32H7_SERIALDRIVER
+
+endchoice # USART5 Driver Configuration
+
+endif # GD32H7_USART5
+
+config GD32H7_UART6
+	bool "UART6"
+	---help---
+		Enable UART6
+
+if GD32H7_UART6
+
+choice
+	prompt "UART6 Driver Configuration"
+	default GD32H7_UART6_SERIALDRIVER
+
+config GD32H7_UART6_SERIALDRIVER
+	bool "Standard serial driver"
+	select UART6_SERIALDRIVER
+	select ARCH_HAVE_SERIAL_TERMIOS
+	select GD32H7_SERIALDRIVER
+
+endchoice # UART6 Driver Configuration
+
+endif # GD32H7_UART6
+
+config GD32H7_UART7
+	bool "UART7"
+	---help---
+		Enable UART7
+
+if GD32H7_UART7
+
+choice
+	prompt "UART7 Driver Configuration"
+	default GD32H7_UART7_SERIALDRIVER
+
+config GD32H7_UART7_SERIALDRIVER
+	bool "Standard serial driver"
+	select UART7_SERIALDRIVER
+	select ARCH_HAVE_SERIAL_TERMIOS
+	select GD32H7_SERIALDRIVER
+
+endchoice # UART7 Driver Configuration
+
+endif # GD32H7_UART7
+
+config GD32H7_SERIALDRIVER
+	bool
+	default n
+
+endmenu # U[S]ART Configuration
+
+menu "GD32H7 Peripheral Support"
+	depends on ARCH_CHIP_GD32H7
+
+config GD32H7_DMA
+	bool
+	default n
+
+config GD32H7_DMA0
+	bool "DMA0"
+	default n
+	select GD32H7_DMA
+	select ARCH_DMA
+
+config GD32H7_DMA1
+	bool "DMA1"
+	default n
+	select GD32H7_DMA
+	select ARCH_DMA
+
+config GD32H7_SPI
+	bool
+	default n
+
+config GD32H7_SPI0
+	bool "SPI0"
+	default n
+	select SPI
+	select GD32H7_SPI
+
+config GD32H7_SPI1
+	bool "SPI1"
+	default n
+	select SPI
+	select GD32H7_SPI
+
+config GD32H7_SPI2
+	bool "SPI2"
+	default n
+	select SPI
+	select GD32H7_SPI
+
+config GD32H7_SPI3
+	bool "SPI3"
+	default n
+	select SPI
+	select GD32H7_SPI
+
+config GD32H7_SPI4
+	bool "SPI4"
+	default n
+	select SPI
+	select GD32H7_SPI
+
+config GD32H7_SPI5
+	bool "SPI5"
+	default n
+	select SPI
+	select GD32H7_SPI
+
+config GD32H7_I2C
+	bool
+	default n
+
+config GD32H7_I2C0
+	bool "I2C0"
+	default n
+	select I2C
+	select GD32H7_I2C
+
+config GD32H7_I2C1
+	bool "I2C1"
+	default n
+	select I2C
+	select GD32H7_I2C
+
+config GD32H7_I2C2
+	bool "I2C2"
+	default n
+	select I2C
+	select GD32H7_I2C
+
+config GD32H7_I2C3
+	bool "I2C3"
+	default n
+	select I2C
+	select GD32H7_I2C
+
+config GD32H7_TIMER
+	bool
+	default n
+
+config GD32H7_PWM
+	bool "PWM support"
+	default n
+	depends on PWM
+	select GD32H7_TIMER
+
+config GD32H7_FWDGT
+	bool "Free watchdog timer (FWDGT)"
+	default n
+	select WATCHDOG
+
+config GD32H7_CRC
+	bool "CRC accelerator"
+	default n
+
+config GD32H7_TRNG
+	bool "True random number generator (TRNG)"
+	default n
+
+config GD32H7_PMU
+	bool "Power management unit (PMU)"
+	default n
+
+config GD32H7_ADC
+	bool
+	default n
+
+config GD32H7_ADC0
+	bool "ADC0"
+	default n
+	select GD32H7_ADC
+
+config GD32H7_ADC1
+	bool "ADC1"
+	default n
+	select GD32H7_ADC
+
+config GD32H7_ADC2
+	bool "ADC2"
+	default n
+	select GD32H7_ADC
+
+config GD32H7_DAC
+	bool "DAC support"
+	default n
+
+config GD32H7_RTC
+	bool "Real-time clock (RTC)"
+	default n
+	select RTC
+	select RTC_DATETIME
+
+config GD32H7_CAN
+	bool
+	default n
+
+config GD32H7_CAN0
+	bool "CAN0"
+	default n
+	depends on CAN
+	select GD32H7_CAN
+
+config GD32H7_CAN1
+	bool "CAN1"
+	default n
+	depends on CAN
+	select GD32H7_CAN
+
+config GD32H7_CAN2
+	bool "CAN2"
+	default n
+	depends on CAN
+	select GD32H7_CAN
+
+config GD32H7_FMC
+	bool "Flash memory controller (progmem API)"
+	default n
+
+config GD32H7_SDIO
+	bool "SDIO support (polling mode)"
+	default n
+	depends on MMCSD
+	select ARCH_HAVE_SDIO
+
+endmenu # GD32H7 Peripheral Support
+
+menu "Memory Configuration"
+	depends on ARCH_CHIP_GD32H7
+
+config GD32H7_DTCMHEAP
+	bool "Add DTCM to the heap"
+	default n
+	---help---
+		Add the 64KiB DTCM as a second heap region.  DTCM is not usable
+		for DMA; when CONFIG_ARCH_DMA is enabled this option must not
+		be selected.
+
+if GD32H7_DTCMHEAP
+
+config MM_REGIONS
+	int "Number of memory regions"
+	default 2
+	range 2 2
+
+endif # GD32H7_DTCMHEAP
+
+config GD32H7_DTCMEXCLUDE
+	bool
+	default n
+
+endmenu # Memory Configuration
+
+# endif # ARCH_CHIP_GD32H7

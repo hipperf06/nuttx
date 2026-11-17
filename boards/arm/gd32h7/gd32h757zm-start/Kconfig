@@ -1,0 +1,28 @@
+#
+# For a description of the syntax of this configuration file,
+# see the file kconfig-language.txt in the NuttX tools repository.
+#
+
+if ARCH_BOARD_GD32H757ZM_START
+
+choice
+	prompt "GD32H7 MCU System Frequency"
+	default GD32H7_600MHZ
+
+config GD32H7_600MHZ
+	bool "600 MHz"
+	---help---
+		System clock 600MHz from PLL0 (HXTAL 25MHz):
+		PLL0 = 25MHz / 5 * 120 = 600MHz, AHB = 300MHz,
+		APB1/3/4 = 150MHz, APB2 = 300MHz.
+
+config GD32H7_300MHZ
+	bool "300 MHz"
+	---help---
+		System clock 300MHz from PLL0 (HXTAL 25MHz):
+		PLL0 = 25MHz / 5 * 60 = 300MHz, AHB = 300MHz,
+		APB1/3/4 = 150MHz, APB2 = 300MHz.
+
+endchoice # GD32H7 System Frequency
+
+endif # ARCH_BOARD_GD32H757ZM_START
