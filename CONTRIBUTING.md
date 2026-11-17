@@ -37,7 +37,7 @@ and [NuttX Documentation](https://nuttx.apache.org/docs/latest/contributing/guid
 
 ## 1. Contributing Rules.
 
-### 1.1. Goals.
+### 1.1. Goals..
 
 The rules presented are here to ensure high quality code and documentation,
 standardized pull requests processing, as well as long term self-compatibility
