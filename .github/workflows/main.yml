@@ -1,0 +1,20 @@
+name: Build GD32H7
+on:
+  push:
+    branches: [ test ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y gcc-arm-none-eabi bison flex libgmp-dev libmpfr-dev libmpc-dev
+      - name: Configure
+        run: |
+          cd nuttx
+          make distclean
+          ./tools/configure.sh gd32h7:default
+      - name: Build
+        run: make -j$(nproc)
